@@ -1,0 +1,26 @@
+# Dependencies and local state
+node_modules/
+.pnpm-store/
+
+# Model weights are never committed
+models/
+*.gguf
+*.part
+*.gguf.*
+*.safetensors
+
+# Runtime state / logs
+state/
+*.log
+.llama-server*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Local environment
+.env
+.env.*

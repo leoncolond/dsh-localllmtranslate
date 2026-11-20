@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Translation",
+    "description": "A local Hy-MT2 live translation workspace with side-by-side or stacked panes, paragraph-aligned bilingual view, glossary and history. The model runs on this machine; text never leaves it.",
+    "detail": "docs/DETAIL.md"
+  }
+}

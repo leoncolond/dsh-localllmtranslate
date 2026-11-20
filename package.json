@@ -1,0 +1,49 @@
+{
+  "name": "dsh-localllmtranslate",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Local Hy-MT2 live translation workspace: side-by-side or stacked panes, glossary, paragraph alignment and history for the DeepSeek Harness Web UI.",
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "translation",
+    "hy-mt2",
+    "llama.cpp",
+    "glossary"
+  ],
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "docs",
+    "icon.svg"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  }
+}
