@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Declare `engines.dsh`: `>=0.2.2-rc.5 <0.3.0`; document DSH compatibility in README.
+- Update install/version references to `v0.1.1`. No runtime behavior changes.
+
 ## 0.1.0 — baseline
 
 First public baseline of `dsh-localllmtranslate`.

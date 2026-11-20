@@ -1,9 +1,12 @@
 {
   "name": "dsh-localllmtranslate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "Local Hy-MT2 live translation workspace: side-by-side or stacked panes, glossary, paragraph alignment and history for the DeepSeek Harness Web UI.",
   "license": "MIT",
+  "engines": {
+    "dsh": ">=0.2.2-rc.5 <0.3.0"
+  },
   "keywords": [
     "dsh",
     "deepseek-harness",

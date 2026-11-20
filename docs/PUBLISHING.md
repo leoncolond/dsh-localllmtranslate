@@ -1,6 +1,6 @@
 # 发布与镜像
 
-当前基线：`main` / `v0.1.0`。发布物不包含模型、`models/` 或 `state/`。
+当前基线：`main` / `v0.1.1`。发布物不包含模型、`models/` 或 `state/`。
 
 ## GitHub
 
@@ -8,7 +8,7 @@
 gh auth login
 git remote add origin https://github.com/leoncolond/dsh-localllmtranslate.git
 git push -u origin main
-git push origin v0.1.0
+git push origin v0.1.1
 ```
 
 如果 `gh` 是在 DSH 启动后才安装的，先重启 DSH：发布工具使用启动时的 PATH 快照。
@@ -85,7 +85,7 @@ ssh -T git@gitee.com
 cd D:\dsh\dsh-localllmtranslate
 git remote add gitee git@gitee.com:leoncolond/dsh-localllmtranslate.git
 git push -u gitee main
-git push gitee v0.1.0
+git push gitee v0.1.1
 ```
 
 HTTPS 等价写法：
@@ -93,7 +93,7 @@ HTTPS 等价写法：
 ```powershell
 git remote add gitee https://gitee.com/leoncolond/dsh-localllmtranslate.git
 git push -u gitee main
-git push gitee v0.1.0
+git push gitee v0.1.1
 ```
 
 后续同步：
@@ -111,7 +111,7 @@ dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtransl
 固定 tag：
 
 ```bash
-dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtranslate.git#v0.1.0
+dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtranslate.git#v0.1.1
 ```
 
 如果当前 DSH 版本不接受 Git URL，先 clone 再装：

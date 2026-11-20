@@ -37,7 +37,7 @@ A local Hy-MT2 translation workspace for the DeepSeek Harness Web UI. Everything
 
 ## 环境要求
 
-- DeepSeek Harness（Web GUI 与插件系统；基线在 0.2.2-rc.5 上验证）。
+- DeepSeek Harness `>=0.2.2-rc.5 <0.3.0`（当前基线在 0.2.2-rc.5 上验证）。
 - 本机 `llama-server`（llama.cpp）。插件会在 PATH、WinGet 安装目录、`$DSH_HOME/local-model/runtime` 和设置里填写的路径中自动查找。
 - 建议至少 6 GB 可用显存/内存；默认 F16 模型约 3.34 GiB。
 - 插件本身**没有 npm 运行时依赖**，也没有构建步骤；模型与 llama.cpp 运行时都不随包分发。
@@ -49,6 +49,12 @@ winget install ggml.llamacpp
 ```
 
 其他平台从 <https://github.com/ggml-org/llama.cpp/releases> 下载对应包，把 `llama-server` 放进 PATH 或 `$DSH_HOME/local-model/runtime/`。
+
+## 兼容性
+
+- `package.json` 声明 `engines.dsh`：`>=0.2.2-rc.5 <0.3.0`。
+- 已在 DSH **0.2.2-rc.5** 上验证；0.3.0 未验证，DSH 插件管理器会阻止不满足该范围的安装/激活。
+- 插件没有声明 Node.js 引擎要求，运行时由 DSH 自带环境提供。
 
 ## 安装
 
@@ -80,7 +86,7 @@ dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtransl
 固定到基线版本：
 
 ```bash
-dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtranslate.git#v0.1.0
+dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtranslate.git#v0.1.1
 ```
 
 如果 `dsh plugin` 不接受 Git URL，先 clone 再按本地目录安装：
@@ -165,14 +171,14 @@ https://hf-mirror.com/mradermacher/Hy-MT2-1.8B-GGUF/resolve/main/Hy-MT2-1.8B.f16
 ```bash
 npm publish --access public
 git push -u origin main
-git push origin v0.1.0
+git push origin v0.1.1
 ```
 
 也可以使用 DSH 的 `dsh-publish-plugin`（`publish_plugin` 工具 / `/publish-dsh-plugin` 命令）一次完成 npm 发布、GitHub 仓库创建与推送。
 
 ## 版本
 
-当前基线版本：**0.1.0**（见 `CHANGELOG.md`）。
+当前基线版本：**0.1.1**（见 `CHANGELOG.md`）。
 
 ## 许可
 
