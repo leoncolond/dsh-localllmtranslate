@@ -64,7 +64,13 @@ winget install ggml.llamacpp
 dsh plugin --profile web add dsh-localllmtranslate
 ```
 
+> npm 上是否已有这个包，取决于发布进度（`npm view dsh-localllmtranslate version`）；未发布时请用下面的 Git 或本地目录安装，步骤见 [docs/PUBLISHING.md](docs/PUBLISHING.md)。
+
 把 `web` 换成你自己的 profile 名（例如 `desktop`）。安装后重启 DSH，左侧栏才会出现 **翻译**。
+
+> 桌面版（Electron）的 `desktop` profile 由应用独占管理，全局 `dsh` CLI 会提示
+> `profile "desktop" is managed exclusively by the Electron application`；这种情况请在应用内的
+> **Plugins** 界面安装或升级。
 
 ### 从 GitHub / 本地目录安装
 
@@ -86,7 +92,7 @@ dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtransl
 固定到基线版本：
 
 ```bash
-dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtranslate.git#v0.1.1
+dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtranslate.git#v0.1.2
 ```
 
 如果 `dsh plugin` 不接受 Git URL，先 clone 再按本地目录安装：
@@ -128,6 +134,7 @@ https://hf-mirror.com/mradermacher/Hy-MT2-1.8B-GGUF/resolve/main/Hy-MT2-1.8B.f16
 - 模型保存在 `$DSH_HOME/localllmtranslate/models/`；也可以手动放入任意 `*.gguf` 并在设置中指向它。
 - 该 F16 GGUF 的 tokenizer 元数据缺少正确的 EOS 标记；插件启动时会自动追加
   `--override-kv tokenizer.ggml.eos_token_id=int:120020`，否则模型可能在译文后继续编造内容。可在设置里关闭。
+- 下载完成后会核对文件大小；中断留下的残缺文件保留为 `.part` 用于断点续传，不会被当成完整模型启动。
 - 模型权重遵循其上游 **Apache-2.0** 许可；本插件代码使用 MIT 许可。仓库不会提交 `*.gguf` / `models/` / `state/`。
 
 ## 使用提示
@@ -145,6 +152,7 @@ https://hf-mirror.com/mradermacher/Hy-MT2-1.8B-GGUF/resolve/main/Hy-MT2-1.8B.f16
   - `models/`：模型文件
   - `state/glossary.json`、`state/history.json`、`state/settings.json`
   - `state/llama-server.log`
+- `history.json` 有 8 MiB 上限：超出后按时间顺序丢弃最旧的记录（单条超大记录仍会保留）。
 - 插件 HTTP 接口只注册在 DSH 的同源 Web 服务下，沿用 DSH 的连接信任检查。
 
 ## 开发
@@ -171,14 +179,17 @@ https://hf-mirror.com/mradermacher/Hy-MT2-1.8B-GGUF/resolve/main/Hy-MT2-1.8B.f16
 ```bash
 npm publish --access public
 git push -u origin main
-git push origin v0.1.1
+git push origin v0.1.2
 ```
 
 也可以使用 DSH 的 `dsh-publish-plugin`（`publish_plugin` 工具 / `/publish-dsh-plugin` 命令）一次完成 npm 发布、GitHub 仓库创建与推送。
 
+npm 推荐用 **Trusted Publishing**：首个版本必须在能完成 2FA 的机器上手工 `npm publish` 一次（OIDC 不能创建新包），
+之后按 [docs/PUBLISHING.md](docs/PUBLISHING.md) 用 `npm trust` 登记 `.github/workflows/publish.yml`，推 tag 即自动发布并生成 Release。
+
 ## 版本
 
-当前基线版本：**0.1.1**（见 `CHANGELOG.md`）。
+当前基线版本：**0.1.2**（见 `CHANGELOG.md`）。
 
 ## 许可
 

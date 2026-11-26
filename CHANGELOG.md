@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.2
+
+- Download integrity: the default model is verified against its exact byte size after download; a short file that already carries the final name is moved back to `.part` for resume instead of being started as a complete model.
+- History limits: `history.json` is trimmed by a byte budget (8 MiB, newest first). A single oversized record is still kept, so saving a long translation never loses it.
+- Glossary candidates: the listed terms are now translated in one batched request; when the model does not return exactly one line per term, the flow falls back to one request per term.
+- Cleanup: removed unused exports (`CREDENTIAL_KEY`, `buildExtractionPrompt`, `parseTermLines`, `csvEscape`) and `ModelManager.openModelDirHint`.
+- Client: dropped the compatibility patch that deleted live-translation history records on older hosts; the host already honors `saveHistory: false`.
+- Release: added `.github/workflows/publish.yml` (tag-triggered npm Trusted Publishing plus GitHub release) and `repository`/`homepage`/`bugs` metadata required by provenance.
+- Docs: language count is consistently 38; documented the history byte cap and the download check.
+
 ## 0.1.1
 
 - Declare `engines.dsh`: `>=0.2.2-rc.5 <0.3.0`; document DSH compatibility in README.

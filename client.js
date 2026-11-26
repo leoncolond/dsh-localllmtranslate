@@ -2154,19 +2154,12 @@ window.__ModuleLoader__.load({
               } else if (event.type === 'segment-error') {
                 setSegmentErrors(previous => ({ ...previous, [event.index]: event.error }))
               } else if (event.type === 'saved') {
-                if (live) {
-                  // Older hosts ignore saveHistory:false and persist live output.
-                  // Remove that record immediately so live mode stays history-free.
-                  requestApi('/api/history', {
-                    method: 'POST',
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify({ action: 'delete', id: event.id }),
-                  }).catch(() => {})
-                } else {
-                  setLastSavedId(event.id)
-                  savedSignatureRef.current = makeSignature(list, collected, sourceLang, targetLang)
-                  reloadState()
-                }
+                // The host only reports `saved` when it really persisted the
+                // record, and live translation sends `saveHistory: false`, so
+                // this always belongs to a manual translation.
+                setLastSavedId(event.id)
+                savedSignatureRef.current = makeSignature(list, collected, sourceLang, targetLang)
+                reloadState()
               } else if (event.type === 'error') {
                 failed = true
                 setError(event.message)
