@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.3
+
+- Language detection rewritten from "first script that appears" to **character-share based**. A long English document that quotes a Chinese sentence now stays English, and a Chinese document full of English identifiers stays Chinese.
+  - Han must dominate Han + Latin before any Chinese variant is considered.
+  - Cantonese and Traditional Chinese markers are share-based, and the Traditional list now holds traditional-only forms (`行`/`史`/`出`/`上`/`端`/`置` no longer count, which used to make every simplified text look traditional).
+  - Japanese uses the kana share, Korean the Hangul share; the other scripts are chosen by dominance instead of mere presence.
+  - Latin languages use IDF-weighted function words (a word shared by several languages is weak evidence) plus diacritic hints, falling back to English.
+  - Fenced code, inline code, URLs and Windows paths are ignored while measuring the share.
+- Tests: added `test/detect.mjs` with 47 checks across 35 languages plus mixed-text regressions; run with `npm test`.
+
 ## 0.1.2
 
 - Download integrity: the default model is verified against its exact byte size after download; a short file that already carries the final name is moved back to `.part` for resume instead of being started as a complete model.

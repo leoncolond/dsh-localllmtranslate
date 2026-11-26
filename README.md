@@ -92,7 +92,7 @@ dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtransl
 固定到基线版本：
 
 ```bash
-dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtranslate.git#v0.1.2
+dsh plugin --profile web add git+https://gitee.com/leoncolond/dsh-localllmtranslate.git#v0.1.3
 ```
 
 如果 `dsh plugin` 不接受 Git URL，先 clone 再按本地目录安装：
@@ -142,6 +142,7 @@ https://hf-mirror.com/mradermacher/Hy-MT2-1.8B-GGUF/resolve/main/Hy-MT2-1.8B.f16
 - 实时翻译默认开启；点「翻译」会走完整流程（保存历史、按设置抽取术语）。
 - 实时翻译本身不自动写历史；需要时点译文栏的「保存历史」。
 - 顶部的语言选择支持 38 种语言，中间按钮可互换；源语言为自动时，中文→英文，其他→中文。
+- 自动检测按整篇文本的**文字占比**判断：中英混排的长文里夹一句中文不会整篇判成中文；代码块、行内代码、URL 和 Windows 路径不参与统计。
 - 「设置 → 界面」可调整布局方向、侧栏位置、提示播报、模型卡片双击、自动下载/启动。
 - 「恢复默认设置」会保留模型文件路径，但重置其它参数和界面选项。
 
@@ -179,7 +180,7 @@ https://hf-mirror.com/mradermacher/Hy-MT2-1.8B-GGUF/resolve/main/Hy-MT2-1.8B.f16
 ```bash
 npm publish --access public
 git push -u origin main
-git push origin v0.1.2
+git push origin v0.1.3
 ```
 
 也可以使用 DSH 的 `dsh-publish-plugin`（`publish_plugin` 工具 / `/publish-dsh-plugin` 命令）一次完成 npm 发布、GitHub 仓库创建与推送。
@@ -189,7 +190,7 @@ npm 推荐用 **Trusted Publishing**：首个版本必须在能完成 2FA 的机
 
 ## 版本
 
-当前基线版本：**0.1.2**（见 `CHANGELOG.md`）。
+当前基线版本：**0.1.3**（见 `CHANGELOG.md`）。
 
 ## 许可
 
